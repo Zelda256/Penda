@@ -22,5 +22,5 @@ export default {
       },
     }],
   ],
-  history: 'hash',
+  base: '/var/lib/jenkins/workspace/deploy_penda/dist',
 }
