@@ -22,5 +22,5 @@ export default {
       },
     }],
   ],
-  base: '/var/lib/jenkins/workspace/deploy_penda/dist',
+  base: '/var/lib/jenkins/workspace/deploy_penda/dist/',
 }
