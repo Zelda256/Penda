@@ -10,7 +10,7 @@ export default {
       dynamicImport: false,
       title: 'penda',
       dll: false,
-      
+
       routes: {
         exclude: [
           /models\//,
@@ -22,4 +22,5 @@ export default {
       },
     }],
   ],
+  history: 'hash',
 }

@@ -16,3 +16,8 @@
 # umi
 .umi
 .umi-production
+
+# others
+/.vscode
+/.gitignore
+
