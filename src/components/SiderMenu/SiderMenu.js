@@ -103,6 +103,8 @@ export default class SiderMenu extends PureComponent {
       </Link>
     );
   }
+
+  
   // 获取子菜单或item
   getSubMenuOrItem(item) {
     if (item.children && item.children.some(child => child.name)) {
