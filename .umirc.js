@@ -1,6 +1,8 @@
 
 // ref: https://umijs.org/config/
 export default {
+  history: 'hash',
+  base:'/var/lib/jenkins/workspace/deploy_penda/',
   treeShaking: true,
   plugins: [
     // ref: https://umijs.org/plugin/umi-plugin-react.html
