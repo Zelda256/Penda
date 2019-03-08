@@ -104,7 +104,7 @@ export default class SiderMenu extends PureComponent {
     );
   }
 
-  
+
   // 获取子菜单或item
   getSubMenuOrItem(item) {
     if (item.children && item.children.some(child => child.name)) {
@@ -170,7 +170,6 @@ export default class SiderMenu extends PureComponent {
     }
     return ItemDom;
   }
-
   render() {
     const { logo, collapsed, onCollapse } = this.props;
     const { openKeys } = this.state;
