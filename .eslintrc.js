@@ -1,4 +1,5 @@
 module.exports = {
+  "parser": "babel-eslint",
   "env": {
     "browser": true,
     "node": true,
@@ -16,6 +17,7 @@ module.exports = {
     "react"
   ],
   "rules": {
+    'no-console': 'off',
     "indent": [
       "error",
       2
@@ -32,5 +34,5 @@ module.exports = {
       "error",
       "always"
     ]
-  }
+  },
 };

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 import React from 'react';
 import { Avatar, List } from 'antd';
 import classNames from 'classnames';

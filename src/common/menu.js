@@ -9,7 +9,7 @@ const menuData = [
   {
     name: '工作台',
     icon: 'dashboard',
-    path: 'dashboard',
+    path: 'workbench',
     children: [
       {
         name: '我的项目',
@@ -19,11 +19,31 @@ const menuData = [
         name: '下属项目',
         path: 'mateProject',
       },
+    ],
+  },
+  {
+    name: '团队管理',
+    icon: 'team',
+    path: 'team',
+    children: [
       {
-        name: '工作台',
-        path: 'workplace',
-        // hideInBreadcrumb: true,
-        // hideInMenu: true,
+        name: '我的团队',
+        path: 'myTeam',
+      },
+      {
+        name: '通讯录',
+        path: 'contact',
+      },
+    ],
+  },
+  {
+    name: '财务管理',
+    icon: 'pay-circle',
+    path: 'money',
+    children: [
+      {
+        name: '报销记录',
+        path: 'reimburse',
       },
     ],
   },

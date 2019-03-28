@@ -18,7 +18,8 @@
     "path-to-regexp": "^3.0.0",
     "rc-drawer-menu": "^1.1.0",
     "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react-dom": "^16.7.0",
+    "umi-plugin-dva": "^1.5.0"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",

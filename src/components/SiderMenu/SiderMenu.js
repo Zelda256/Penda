@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 import React, { PureComponent } from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import pathToRegexp from 'path-to-regexp';
@@ -31,13 +33,11 @@ export const getMenuMatcheys = (flatMenuKeys, path) => {
 export default class SiderMenu extends PureComponent {
   constructor(props) {
     super(props);
-    console.log(props);
     this.menus = props.menuData;
     this.flatMenuKeys = this.getFlatMenuKeys(props.menuData);
     this.state = {
       openKeys: this.getDefaultCollapsedSubMenus(props)
     };
-    this.handleOpenChange = this.handleOpenChange.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.location.pathname !== this.props.location.pathname) {
@@ -55,7 +55,7 @@ export default class SiderMenu extends PureComponent {
     }).filter(item => item);
   }
 
-  // Recursively flatten the data
+  // 以递归方式展开菜单数据
   // [{path:string},{path:string}] => {path,path2}
   getFlatMenuKeys(menus) {
     let keys = [];
@@ -96,12 +96,17 @@ export default class SiderMenu extends PureComponent {
         to={itemPath}
         target={target}
         replace={itemPath === this.props.location.pathname}
-        onClick={undefined}
+        onClick={() => { this.props.newPane(name, itemPath); }}
       >
         {icon}
         <span>{name}</span>
       </Link>
     );
+  }
+
+  // 点击了某项菜单，需要判断打开新标签页还是激活已打开的标签页
+  clickMenu = (name, itemPath) => {
+    
   }
 
 
@@ -155,7 +160,9 @@ export default class SiderMenu extends PureComponent {
   isMainMenu(key) {
     return this.menus.some(item => key && (item.key === key || item.path === key));
   }
-  handleOpenChange(openKeys) {
+
+  // SubMenu 展开/关闭的回调
+  handleOpenChange = (openKeys) => {
     const lastOpenKey = openKeys[openKeys.length - 1];
     const moreThanOne = openKeys.filter(openKey => this.isMainMenu(openKey)).length > 1;
     this.setState({
@@ -174,6 +181,7 @@ export default class SiderMenu extends PureComponent {
     const { logo, collapsed, onCollapse } = this.props;
     const { openKeys } = this.state;
     const menuProps = collapsed ? {} : { openKeys };
+    // 当前选中的菜单项 key 数组
     let selectedKeys = this.getSelectedMenuKeys();
 
     if (!selectedKeys.length) {
@@ -197,7 +205,6 @@ export default class SiderMenu extends PureComponent {
         </div>
         <Menu
           key="Menu"
-          theme="dark"
           mode="inline"
           {...menuProps}
           onOpenChange={this.handleOpenChange}
