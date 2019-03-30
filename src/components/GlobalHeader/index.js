@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 import React, { PureComponent } from 'react';
 import { Menu, Icon, Spin, Tag, Dropdown, Avatar, Divider, Tooltip } from 'antd';
 import moment from 'moment';
 import groupBy from 'lodash/groupBy';
 import Debounce from 'lodash-decorators/debounce';
-import Link from 'umi/link';
 import NoticeIcon from '../NoticeIcon';
 import styles from './index.less';
 

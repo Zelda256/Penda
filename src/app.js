@@ -1,4 +1,3 @@
-
 export const dva = {
   config: {
     onError(err) {
@@ -6,4 +5,7 @@ export const dva = {
       console.error(err.message);
     },
   },
+  plugins: [
+    require('dva-logger')(),
+  ],
 };

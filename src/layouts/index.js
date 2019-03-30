@@ -65,6 +65,7 @@ class BasicLayout extends Component {
   render() {
     const { children, location } = this.props;
     const { collapsed } = this.state;
+
     return (
       <Layout>
         <SiderMenu
@@ -90,7 +91,7 @@ class BasicLayout extends Component {
             />
           </Header>
 
-          <Content style={{ margin: '24px 24px 0', height: '100%' }} >
+          <Content style={{ margin: '8px 8px 0', height: '100%'}} >
             <TabPage
               panes={this.state.panes}
               activeKey={this.state.activeKey}

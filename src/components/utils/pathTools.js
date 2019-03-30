@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 // /userinfo/2144/id => ['/userinfo','/useinfo/2144,'/userindo/2144/id']
 export function urlToList(url) {
   const urllist = url.split('/').filter(i => i);

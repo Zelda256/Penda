@@ -8,7 +8,8 @@ module.exports = {
   "extends": "eslint:recommended",
   "parserOptions": {
     "ecmaFeatures": {
-      "jsx": true
+      "jsx": true,
+      "legacyDecorators": true
     },
     "ecmaVersion": 2018,
     "sourceType": "module"
@@ -33,6 +34,15 @@ module.exports = {
     "semi": [
       "error",
       "always"
-    ]
+    ],
+    "no-use-before-define": "off",
+    "no-unused-vars": [
+      {
+        "args": "after-used",
+        "argsIgnorePattern": "^_",
+        "ignoreRestSiblings": true,
+        "vars": "all"
+      }
+    ],
   },
 };

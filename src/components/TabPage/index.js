@@ -33,6 +33,7 @@ export default class TabPage extends PureComponent {
   }
 
   render() {
+    const panes = this.state.panes;
     return (
       <div>
         <Tabs
@@ -41,8 +42,9 @@ export default class TabPage extends PureComponent {
           activeKey={this.state.activeKey}
           type="editable-card"
           onEdit={this.props.onEdit}
+          tabBarStyle={{margin: 0, backgroundColor: '#EEF1F4'}}
         >
-          {this.state.panes.map(pane => <TabPane tab={<Link className={styles.tabName} to={pane.key}>{pane.title}</Link>} key={pane.key} />)}
+          {panes.map(pane => <TabPane tab={<Link className={styles.tabName} to={pane.key}>{pane.title}</Link>} key={pane.key} />)}
         </Tabs>
       </div>
     );

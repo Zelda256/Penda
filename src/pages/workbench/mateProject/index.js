@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 import router from 'umi/router';
 import { Button } from 'antd';
 
