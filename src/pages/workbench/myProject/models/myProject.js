@@ -4,14 +4,14 @@ export default {
   namespace: 'myProjects',
   state: {
     projects: [],
-    readProject: null
+    readProjects: null
   },
   reducers: {
     listedProjects(state, { payload: { data: projects } }) {
       return { ...state, projects };
     },
     readProjects(state, { payload: { data: project } }) {
-      return { ...state, readProject: project };
+      return { ...state, readProjects: project };
     }
   },
   effects: {
@@ -28,9 +28,7 @@ export default {
       }
     },
     *read({ payload: id }, { call, put }) {
-      console.log('-----', id);
       const result = yield call(read, id);
-      console.log('??????', result);
       if (result && result.status === 1) {
         const data = result.data;
         yield put({

@@ -27,7 +27,6 @@ class MyProject extends PureComponent {
   }
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.projects && nextProps.projects !== prevState.projects) {
-      console.log('???413', nextProps.projects);
       return {
         projects: nextProps.projects
       }
