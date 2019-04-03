@@ -60,7 +60,7 @@ class Waterfall extends PureComponent {
                 <div className={styles.projectItem}>
                   <div className={styles.itemName}>{item.name}</div>
                   <div className={styles.itemID}>ID: {item.id}</div>
-                  <Progress percent={item.progess} size="small" />
+                  <Progress percent={item.progress} size="small" />
                   <div>截止日期：{item.deadLine}</div>
                 </div>
               </Card>) : <Empty />
@@ -81,6 +81,7 @@ class Waterfall extends PureComponent {
                 hoverable
                 type="inner"
                 size="small"
+                onClick={() => this.showProjectDetail(item.id)}
               >
                 <div className={styles.projectItem}>
                   <div className={styles.itemName}>{item.name}</div>
@@ -104,11 +105,12 @@ class Waterfall extends PureComponent {
                 hoverable
                 type="inner"
                 size="small"
+                onClick={() => this.showProjectDetail(item.id)}
               >
                 <div className={styles.projectItem}>
                   <div className={styles.itemName}>{item.name}</div>
                   <div className={styles.itemID}>ID: {item.id}</div>
-                  <Progress percent={item.progess} size="small" />
+                  <Progress percent={item.progress} size="small" />
                   <div>截止日期：{item.deadLine}</div>
                 </div>
               </Card>) : <Empty />

@@ -57,11 +57,14 @@ export default class ProjectModal extends PureComponent {
           </div>
           <div className={styles.modalLeftRow}>
             <label className={styles.leftLabel}><Icon type="user" /><span>  负责人</span></label>
-            <label ><Avatar size="small" src={project.creator.avatar} /><span> {project.creator.name}</span></label>
+            <label style={{ padding: '6px 8px', cursor: 'pointer' }}>
+              <Avatar size="small" src={project.creator.avatar} />
+              <span> {project.creator.name}</span>
+            </label>
           </div>
           <div className={styles.modalLeftRow}>
             <label className={styles.leftLabel}><Icon type="calendar" /><span>  时间</span></label>
-            <label ><RangePicker value={[moment(project.created), moment(project.deadLine)]} /></label>
+            <label style={{ paddingLeft: 6 }}><RangePicker value={[moment(project.created), moment(project.deadLine)]} /></label>
           </div>
           <div className={styles.modalLeftRow}>
             <label className={styles.leftLabel}><Icon type="flag" /><span>  优先级</span></label>
@@ -80,11 +83,28 @@ export default class ProjectModal extends PureComponent {
           </div>
           <div className={styles.modalLeftRow}>
             <label className={styles.leftLabel}><Icon type="money-collect" /><span>  预算</span></label>
+            <div style={{ padding: '6px 8px' }}>
+              {project.budget ? project.budget : '无'}
+              {project.moneyType === 'RMB' ? ' RMB' : project.moneyType === 'dollar' ? ' Dollar' : ''}
+            </div>
+          </div>
+          <div className={styles.modalLeftRow}>
+            <label className={styles.leftLabel}><Icon type="bell" /><span>  提醒</span></label>
             <div >
               {project.budget ? project.budget : '无'}
               {project.moneyType === 'RMB' ? ' RMB' : project.moneyType === 'dollar' ? ' Dollar' : ''}
             </div>
           </div>
+          <div className={styles.modalLeftTask}>
+            <label className={styles.leftLabel}><Icon type="solution" /><span>  子任务</span></label>
+            <div className={styles.task}>
+              <div className={styles.addTask}>
+                <span> <Icon type="plus-circle" theme="twoTone" /> 添加子任务</span>
+              </div>
+
+            </div>
+          </div>
+
         </div>
         <div className={styles.modalRight}>
           <div className={styles.modalRightTop}>
@@ -95,7 +115,7 @@ export default class ProjectModal extends PureComponent {
           <div className={styles.modalRightDown}>
             <span><Icon type="schedule" /> 进度</span>
             <div style={{ width: 300, display: 'inline-block', marginLeft: 16 }}>
-              <Progress percent={project.progess} size="small" />
+              <Progress percent={project.progress} size="small" />
             </div>
             <div className={styles.process}>
               {
