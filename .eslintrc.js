@@ -36,13 +36,6 @@ module.exports = {
       "always"
     ],
     "no-use-before-define": "off",
-    "no-unused-vars": [
-      {
-        "args": "after-used",
-        "argsIgnorePattern": "^_",
-        "ignoreRestSiblings": true,
-        "vars": "all"
-      }
-    ],
+    "no-unused-vars": 1,
   },
 };

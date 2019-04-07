@@ -10,18 +10,18 @@ export default class ProjectModal extends PureComponent {
     this.state = {
       project: null,
       visible: true,
-    }
+    };
   }
   handleCancel = () => {
     this.setState({
       visible: false
-    })
+    });
     this.props.hide();
   }
   handleOk = () => {
     this.setState({
       visible: false
-    })
+    });
     this.props.hide();
   }
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -29,7 +29,7 @@ export default class ProjectModal extends PureComponent {
       console.log('%@#$!', nextProps.project);
       return {
         project: nextProps.project,
-      }
+      };
     }
     return null;
   }
@@ -129,6 +129,6 @@ export default class ProjectModal extends PureComponent {
 
       </>
       }
-    </Modal>
+    </Modal>;
   }
 }

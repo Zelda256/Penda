@@ -14,26 +14,26 @@ class Waterfall extends PureComponent {
     this.state = {
       showProjectModal: false,
       readProjects: {}
-    }
+    };
   }
   showProjectDetail = (projectId) => {
     const { dispatch } = this.props;
     dispatch({
       type: 'myProjects/read',
       payload: projectId
-    })
+    });
   }
   hideProjectDetail = () => {
     this.setState({
       showProjectModal: false
-    })
+    });
   }
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.readProjects && nextProps.readProjects !== prevState.readProjects) {
       return {
         readProjects: nextProps.readProjects,
         showProjectModal: true
-      }
+      };
     }
     return null;
   }
@@ -124,7 +124,7 @@ class Waterfall extends PureComponent {
           visible={this.state.showProjectModal}
           project={this.props.readProjects} />
       }
-    </>
+    </>;
   }
 }
 export default Waterfall;
