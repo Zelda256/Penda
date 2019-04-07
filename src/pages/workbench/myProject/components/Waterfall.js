@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { Progress, Empty, Card, Row, Col } from 'antd';
 import styles from './Waterfall.less';
 import ProjectModal from './ProjectModal';
+import moment from 'moment';
 
 @connect(({ myProjects }) => ({
   readProjects: myProjects.readProjects,
@@ -61,7 +62,7 @@ class Waterfall extends PureComponent {
                   <div className={styles.itemName}>{item.name}</div>
                   <div className={styles.itemID}>ID: {item.id}</div>
                   <Progress percent={item.progress} size="small" />
-                  <div>截止日期：{item.deadLine}</div>
+                  <div>截止日期：{moment(item.deadLine).format('YYYY-MM-DD HH:mm')}</div>
                 </div>
               </Card>) : <Empty />
             }
@@ -86,7 +87,7 @@ class Waterfall extends PureComponent {
                 <div className={styles.projectItem}>
                   <div className={styles.itemName}>{item.name}</div>
                   <div className={styles.itemID}>ID: {item.id}</div>
-                  <div>截止日期：{item.deadLine}</div>
+                  <div>截止日期：{moment(item.deadLine).format('YYYY-MM-DD HH:mm')}</div>
                 </div>
               </Card>) : <Empty />
             }</Card>
@@ -111,7 +112,7 @@ class Waterfall extends PureComponent {
                   <div className={styles.itemName}>{item.name}</div>
                   <div className={styles.itemID}>ID: {item.id}</div>
                   <Progress percent={item.progress} size="small" />
-                  <div>截止日期：{item.deadLine}</div>
+                  <div>截止日期：{moment(item.deadLine).format('YYYY-MM-DD HH:mm')}</div>
                 </div>
               </Card>) : <Empty />
             }</Card>

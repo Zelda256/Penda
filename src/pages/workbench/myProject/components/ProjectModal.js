@@ -64,7 +64,7 @@ export default class ProjectModal extends PureComponent {
           </div>
           <div className={styles.modalLeftRow}>
             <label className={styles.leftLabel}><Icon type="calendar" /><span>  时间</span></label>
-            <label style={{ paddingLeft: 6 }}><RangePicker value={[moment(project.created), moment(project.deadLine)]} /></label>
+            <label style={{ paddingLeft: 6 }}><RangePicker value={[moment(project.startDate), moment(project.deadLine)]} /></label>
           </div>
           <div className={styles.modalLeftRow}>
             <label className={styles.leftLabel}><Icon type="flag" /><span>  优先级</span></label>
@@ -84,8 +84,8 @@ export default class ProjectModal extends PureComponent {
           <div className={styles.modalLeftRow}>
             <label className={styles.leftLabel}><Icon type="money-collect" /><span>  预算</span></label>
             <div style={{ padding: '6px 8px' }}>
-              {project.budget ? project.budget : '无'}
-              {project.moneyType === 'RMB' ? ' RMB' : project.moneyType === 'dollar' ? ' Dollar' : ''}
+              {project.moneyType === 'RMB' ? '￥ ' : project.moneyType === 'Dollar' ? '$ ' : ''}
+              {project.budget ? project.budget : '--'}
             </div>
           </div>
           <div className={styles.modalLeftRow}>
@@ -119,7 +119,7 @@ export default class ProjectModal extends PureComponent {
             </div>
             <div className={styles.process}>
               {
-                project.process.length ?
+                project.process && project.process.length ?
                   project.process.map(item => <>{item.json()}</>) :
                   '---暂无动态---'
               }
