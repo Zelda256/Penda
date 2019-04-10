@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
+import { connect } from 'dva';
 import styles from './index.css';
 import { Component } from 'react';
 import _ from 'lodash';
@@ -9,9 +8,13 @@ import { getMenuData } from '../common/menu';
 import logo from '../assets/logo.svg';
 import GlobalHeader from '../components/GlobalHeader';
 import TabPage from '../components/TabPage';
+import Login from '../components/Login';
 
 const { Content, Header } = Layout;
 
+@connect(({ login }) => ({
+  loginRes: login.loginRes,
+}))
 class BasicLayout extends Component {
   constructor(props) {
     super(props);
@@ -20,7 +23,8 @@ class BasicLayout extends Component {
       panes: [
         { title: '我的项目', key: '/workbench/myProject' },
       ],
-      activeKey: '/workbench/myProject'
+      activeKey: '/workbench/myProject',
+      // user: {}
     };
   }
   handleMenuCollapse = () => {
@@ -29,9 +33,17 @@ class BasicLayout extends Component {
     });
   }
 
+  loginUser = (user) => {
+    this.setState({
+      name: user.name,
+      avatar: user.avatar,
+      userId: user._id,
+      notifyCount: 0
+    });
+  }
+
   // 添加标签，如果该标签页已打开，则只激活该标签页
   addPanes = (title, key) => {
-    // console.log('===', title, key);
     const panes = _.cloneDeep(this.state.panes);
     if (!panes.find(item => item.key === key)) {
       panes.push({ title, key });
@@ -65,6 +77,9 @@ class BasicLayout extends Component {
   render() {
     const { children, location } = this.props;
     const { collapsed } = this.state;
+    if (location.pathname === '/login') {
+      return <Login>{children}</Login>;
+    }
 
     return (
       <Layout>
@@ -82,16 +97,15 @@ class BasicLayout extends Component {
               logo={logo}
               collapsed={collapsed}
               currentUser={{
-                name: 'serati ma',
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
-                userId: '00001',
-                notifyCount: 12,
+                name: this.props.loginRes ? this.props.loginRes.name : 'zelda',
+                avatar: this.props.loginRes ? this.props.loginRes.avatar : '',
+                userId: this.props.loginRes ? this.props.loginRes._id : '0001',
+                notifyCount: 0,
               }}
               onCollapse={this.handleMenuCollapse}
             />
           </Header>
-
-          <Content style={{ margin: '8px 8px 0', height: '100%'}} >
+          <Content style={{ margin: '8px 8px 0', height: '100%' }} >
             <TabPage
               panes={this.state.panes}
               activeKey={this.state.activeKey}
@@ -99,7 +113,6 @@ class BasicLayout extends Component {
             />
             {children}
           </Content>
-
         </Layout>
       </Layout>
     );

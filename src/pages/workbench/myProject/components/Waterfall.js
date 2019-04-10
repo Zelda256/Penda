@@ -22,17 +22,19 @@ class Waterfall extends PureComponent {
       type: 'myProjects/read',
       payload: projectId
     });
+    this.setState({
+      showProjectModal: true,
+    });
   }
   hideProjectDetail = () => {
     this.setState({
-      showProjectModal: false
+      showProjectModal: false,
     });
   }
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.readProjects && nextProps.readProjects !== prevState.readProjects) {
       return {
         readProjects: nextProps.readProjects,
-        showProjectModal: true
       };
     }
     return null;

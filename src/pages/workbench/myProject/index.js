@@ -29,7 +29,7 @@ class MyProject extends PureComponent {
     if (nextProps.projects && nextProps.projects !== prevState.projects) {
       return {
         projects: nextProps.projects
-      }
+      };
     }
     return null;
   }
@@ -39,10 +39,10 @@ class MyProject extends PureComponent {
     const processing = [], notStarted = [], finished = [];
     projects.forEach(item => {
       switch (item.status) {
-        case 1: notStarted.push(item); break;
-        case 2: processing.push(item); break;
-        case 3: finished.push(item); break;
-        default: console.log(`这个item的status出错${item}`);
+      case 1: notStarted.push(item); break;
+      case 2: processing.push(item); break;
+      case 3: finished.push(item); break;
+      default: console.log(`这个item的status出错${item}`);
       }
     });
     return <>

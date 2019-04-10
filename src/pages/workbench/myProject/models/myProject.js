@@ -17,6 +17,7 @@ export default {
   effects: {
     *list({ payload: query }, { call, put }) {
       const result = yield call(list, query);
+      console.log('project', result);
       if (result && result.status === 1) {
         const data = result.data;
         yield put({

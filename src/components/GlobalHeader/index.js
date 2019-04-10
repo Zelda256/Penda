@@ -63,7 +63,6 @@ export default class GlobalHeader extends PureComponent {
       currentUser = {},
       collapsed,
       fetchingNotices,
-      logo,
       onNoticeVisibleChange,
       onMenuClick,
       onNoticeClear,
@@ -94,21 +93,10 @@ export default class GlobalHeader extends PureComponent {
           onClick={this.toggle}
         />
         <div className={styles.right}>
-          {/* <HeaderSearch
-            className={`${styles.action} ${styles.search}`}
-            placeholder="站内搜索"
-            dataSource={['搜索提示一', '搜索提示二', '搜索提示三']}
-            onSearch={value => {
-              console.log('input', value); // eslint-disable-line
-            }}
-            onPressEnter={value => {
-              console.log('enter', value); // eslint-disable-line
-            }}
-          /> */}
           <Tooltip title="使用文档">
             <a
               target="_blank"
-              href="http://pro.ant.design/docs/getting-started"
+              href="#"
               rel="noopener noreferrer"
               className={styles.action}
             >
@@ -119,7 +107,7 @@ export default class GlobalHeader extends PureComponent {
             className={styles.action}
             count={currentUser.notifyCount}
             onItemClick={(item, tabProps) => {
-              console.log(item, tabProps); // eslint-disable-line
+              console.log(item, tabProps);
             }}
             onClear={onNoticeClear}
             onPopupVisibleChange={onNoticeVisibleChange}
