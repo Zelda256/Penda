@@ -54,17 +54,7 @@ class Login extends PureComponent {
       username: e.target.value
     });
   }
-  // static getDerivedStateFromProps(nextProps, prevState) {
-  //   if (nextProps.loginRes && nextProps.loginRes.name && nextProps.loginRes !== prevState.loginRes) {
-  //     return {
-  //       loginRes: nextProps.loginRes
-  //     };
-  //   }
-  //   return null;
-  // }
-  // loadUser = (user) => {
-  //   this.props.loadUser(user);
-  // }
+
   render() {
     // console.log(this.state.loginRes);
     if (this.props.loginRes && this.props.loginRes.name) {

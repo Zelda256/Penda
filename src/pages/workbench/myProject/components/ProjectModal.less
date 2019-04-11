@@ -26,6 +26,18 @@
       margin-top: 8px;
       border: 1px solid #ccc;
       border-radius: 6px;
+      .taskStatusMask {
+        position: relative;
+        left: 16px;
+        z-index: 0;
+      }
+      .taskStatus {
+        background: #888;
+        opacity:1;
+        position: relative;
+        left: -32px;
+        opacity: 0;
+      }
     }
     .addTask {
       font-size: 16px;
@@ -47,14 +59,20 @@
   .status {
     background-color: rgb(245,245,245);
     cursor: pointer;
-    padding: 0 8px;
     border-radius: 3px;
     height: 32px;
     padding: 6px 8px;
   }
+  .mind {
+    cursor: pointer;
+    padding: 6px 8px;
+    &:hover {
+      background-color: rgb(245,245,245);
+      border-radius: 8px;
+    }
+  }
   .remark {
     cursor: pointer;
-    padding: 0 8px;
     border-radius: 4px;
     width: 560px;
     height: 32px;

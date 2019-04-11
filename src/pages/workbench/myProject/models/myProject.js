@@ -1,4 +1,4 @@
-import { list, read } from '../../../../servies/myProject';
+import { list, read, createProcess } from '../../../../servies/myProject';
 
 export default {
   namespace: 'myProjects',
@@ -37,6 +37,16 @@ export default {
           payload: {
             data
           }
+        });
+      }
+    },
+    *createProcess({ payload: { projectId, process } }, { call, put }) {
+      const result = yield call(createProcess, projectId, process);
+      if (result && result.status === 1) {
+        console.log('result', result);
+        yield put({
+          type: 'readProjects',
+          payload: projectId
         });
       }
     }

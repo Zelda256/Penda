@@ -40,7 +40,7 @@ class Waterfall extends PureComponent {
     return null;
   }
   render() {
-    const { processing, notStarted, finished } = this.props;
+    const { processing, notStarted, finished } = this.props;  // processing: 进行中的项目
     return <>
       <Row gutter={16}>
         <Col span={8}>
@@ -58,7 +58,7 @@ class Waterfall extends PureComponent {
                 type="inner"
                 size="small"
                 className={item.priority === 1 ? styles.projectItem_red : styles.projectItem_yellow}
-                onClick={() => this.showProjectDetail(item.id)}
+                onClick={() => this.showProjectDetail(item._id)}
               >
                 <div className={styles.projectItem}>
                   <div className={styles.itemName}>{item.name}</div>
@@ -84,11 +84,12 @@ class Waterfall extends PureComponent {
                 hoverable
                 type="inner"
                 size="small"
-                onClick={() => this.showProjectDetail(item.id)}
+                onClick={() => this.showProjectDetail(item._id)}
               >
                 <div className={styles.projectItem}>
                   <div className={styles.itemName}>{item.name}</div>
                   <div className={styles.itemID}>ID: {item.id}</div>
+                  <Progress percent={item.progress} size="small" />
                   <div>截止日期：{moment(item.deadLine).format('YYYY-MM-DD HH:mm')}</div>
                 </div>
               </Card>) : <Empty />
@@ -108,7 +109,7 @@ class Waterfall extends PureComponent {
                 hoverable
                 type="inner"
                 size="small"
-                onClick={() => this.showProjectDetail(item.id)}
+                onClick={() => this.showProjectDetail(item._id)}
               >
                 <div className={styles.projectItem}>
                   <div className={styles.itemName}>{item.name}</div>
