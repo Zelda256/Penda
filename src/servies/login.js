@@ -1,7 +1,6 @@
 import request from './utils/request';
 
 export function login({ username, password }) {
-  console.log('!!@#@$', { username, password });
   return request('/api/login', {
     method: 'POST',
     headers: {

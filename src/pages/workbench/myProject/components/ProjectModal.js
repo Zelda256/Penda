@@ -153,7 +153,7 @@ class ProjectModal extends PureComponent {
               <div className={styles.modalLeftRow}>
                 <label className={styles.leftLabel}><Icon type="check-square" /><span> 状态</span></label>
                 <label className={styles.status}>{
-                  project.status === 2 ?
+                  project.status !== 3 ?
                     <span><Icon type="border" /> 未完成</span> :
                     <span><Icon type="check-square" /> 已完成</span>}
                 </label>

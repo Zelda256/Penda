@@ -46,7 +46,7 @@ class MyProject extends PureComponent {
       }
     });
     return <>
-      <div>
+      <div className={styles.whiteBg}>
         <div className={styles.top}>
           <Row type="flex" justify="space-between" align="middle" style={{ marginTop: 8 }}>
             <Col span={6}>

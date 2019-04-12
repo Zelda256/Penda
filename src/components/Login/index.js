@@ -35,7 +35,6 @@ class Login extends PureComponent {
     const { username, password } = this.state;
     if (!username || !password) return;
     const { dispatch } = this.props;
-    console.log('52342');
     dispatch({
       type: 'login/login',
       payload: {
