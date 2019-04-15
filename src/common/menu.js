@@ -15,10 +15,10 @@ const menuData = [
         name: '我的项目',
         path: 'myProject',
       },
-      {
-        name: '下属项目',
-        path: 'mateProject',
-      },
+      // {
+      //   name: '下属项目',
+      //   path: 'mateProject',
+      // },
     ],
   },
   {
