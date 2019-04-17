@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
 import React, { PureComponent } from 'react';
+import Redirect from 'umi/redirect';
 import Link from 'umi/link';
 import { Tabs } from 'antd';
 import styles from './index.less';
@@ -42,7 +41,7 @@ export default class TabPage extends PureComponent {
           activeKey={this.state.activeKey}
           type="editable-card"
           onEdit={this.props.onEdit}
-          tabBarStyle={{margin: 0, backgroundColor: '#EEF1F4'}}
+          tabBarStyle={{ margin: 0, backgroundColor: '#EEF1F4' }}
         >
           {panes.map(pane => <TabPane tab={<Link className={styles.tabName} to={pane.key}>{pane.title}</Link>} key={pane.key} />)}
         </Tabs>

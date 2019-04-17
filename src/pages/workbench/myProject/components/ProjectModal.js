@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Modal, Spin, Avatar, Icon, DatePicker, Progress, Input, Form, Select, Transfer, Switch } from 'antd';
+import { Modal, Spin, Avatar, Icon, DatePicker, Progress, Input, Form, Select, Transfer, InputNumber } from 'antd';
 import styles from './ProjectModal.less';
 import { connect } from 'dva';
 import moment from 'moment';
@@ -87,9 +87,9 @@ class ProjectModal extends PureComponent {
     });
   }
   // 修改任务预算
-  handleProcessCost = (e) => {
+  handleProcessCost = (value) => {
     const newProcessCopy = _.cloneDeep(this.state.newProcess);  // 深拷贝
-    const cost = e.target.value;
+    const cost = value;
     newProcessCopy.cost = cost;
     this.setState({
       newProcess: newProcessCopy
@@ -145,6 +145,8 @@ class ProjectModal extends PureComponent {
         onCancel={this.handleCancel}
         width='1200px'
         footer={null}
+        centered={true}
+        destroyOnClose={true}
       >
         {!this.state.project ? <Spin /> :
           <>
@@ -272,9 +274,9 @@ class ProjectModal extends PureComponent {
         cancelText="取消"
       >
         <Form
-          layout="vertical"
+          layout="horizontal"
         >
-          <Item label="任务名称">
+          <Item label="任务名称" labelCol={{ span: 4 }} wrapperCol={{ span: 16 }}>
             {getFieldDecorator('processName', {
               rules: [{ required: true, message: '请输入任务名称' }]
             })(
@@ -285,21 +287,19 @@ class ProjectModal extends PureComponent {
               />
             )}
           </Item>
-          <Item label="执行预算">
+          <Item label="执行预算" labelCol={{ span: 4 }} wrapperCol={{ span: 16 }}>
             {getFieldDecorator('processCost', {
               rules: [{ message: '请输入任务的执行预算' }]
             })(
-              <Input
-                style={{ width: 80 }}
-                allowClear
+              <InputNumber
                 onChange={this.handleProcessCost}
                 size="small"
               />
             )}
           </Item>
-          <Item label="任务时间">
+          <Item label="任务时间" labelCol={{ span: 4 }} wrapperCol={{ span: 16 }}>
             {getFieldDecorator('processTime', {
-              rules: [{ required: false }]
+              rules: [{ required: true }]
             })(
               !project ? <Spin /> : <RangePicker
                 showTime={{ format: 'HH:mm' }}

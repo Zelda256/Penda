@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Button, Input, Divider, Row, Col, Avatar, Table, Popconfirm, Form, } from 'antd';
+import { Button, Input, Divider, Row, Col, Table, Popconfirm, Form, } from 'antd';
 import styles from './index.less';
 
 const Search = Input.Search;
@@ -51,6 +51,10 @@ class Contact extends PureComponent {
       contact: [],
       editingKey: '',
     };
+  }
+
+  handleSearchContact() {
+
   }
 
   isEditing = record => record._id === this.state.editingKey;
@@ -188,13 +192,13 @@ class Contact extends PureComponent {
       <div className={styles.whiteBg}>
         <div className={styles.top}>
           <Row type="flex" justify="space-between" align="middle" style={{ marginTop: 8 }}>
-            <Col span={12}>
+            <Col span={4}>
               <Button type="primary">新建联系人</Button>
             </Col>
-            <Col span={12}>
+            <Col span={20}>
               <Search
-                placeholder="姓名"
-                onSearch={this.handleSearchProject}
+                placeholder="联系人姓名"
+                onSearch={this.handleSearchContact}
                 size="small"
                 style={{ width: 240 }}
               />
