@@ -43,6 +43,9 @@ class Login extends PureComponent {
       }
     });
   }
+  onCustomLogin = () => {
+    return <Redirect to="/workbench/myProject" />;
+  }
   handlePwChange = (e) => {
     this.setState({
       password: e.target.value
@@ -96,6 +99,7 @@ class Login extends PureComponent {
           />
           <label visible={this.state.pwLabel} className={styles.formLabel}>Password</label>
           <Button className={styles.btn} onClick={this.onLogin}>登录</Button>
+          <Button className={styles.btn} onClick={this.onCustomLogin}>访客登录</Button>
         </div>
       </Form>
     </div>;
