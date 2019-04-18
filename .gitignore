@@ -21,3 +21,5 @@
 /.vscode
 /.gitignore
 
+/.umirc.local.js
+
