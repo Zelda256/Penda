@@ -44,7 +44,14 @@ class Login extends PureComponent {
     });
   }
   onCustomLogin = () => {
-    return <Redirect to="/workbench/myProject" />;
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'login/login',
+      payload: {
+        username: 'Zelda',
+        password: '256000123'
+      }
+    });
   }
   handlePwChange = (e) => {
     this.setState({
@@ -60,7 +67,6 @@ class Login extends PureComponent {
   render() {
     // console.log(this.state.loginRes);
     if (this.props.loginRes && this.props.loginRes.name) {
-      // this.loadUser(this.props.loginRes);
       return <Redirect to="/workbench/myProject" />;
     }
     return <div className={styles.bg}>

@@ -12,9 +12,9 @@ export default {
   },
   effects: {
     *login({ payload }, { call, put }) {
-      console.log('???', payload);
+      // console.log('???', payload);
       const result = yield call(login, payload);
-      console.log('result', result);
+      // console.log('result', result);
       if (result && result.status === 1) {
         const data = result.data;
         yield put({
