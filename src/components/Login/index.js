@@ -1,5 +1,4 @@
 import Redirect from 'umi/redirect';
-import router from 'umi/router';
 import styles from './index.less';
 import { connect } from 'dva';
 import { Button, Form, Input } from 'antd';

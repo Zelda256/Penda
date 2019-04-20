@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import Redirect from 'umi/redirect';
+import router from 'umi/router';
 import Link from 'umi/link';
 import { Tabs } from 'antd';
 import styles from './index.less';
@@ -29,6 +30,8 @@ export default class TabPage extends PureComponent {
 
   onChange = (activeKey) => {
     this.setState({ activeKey });
+    router.push(activeKey);
+    console.log(activeKey);
   }
 
   render() {

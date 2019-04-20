@@ -1,4 +1,5 @@
 import { connect } from 'dva';
+import router from 'umi/router';
 import styles from './index.css';
 import { Component } from 'react';
 import _ from 'lodash';
@@ -55,7 +56,12 @@ class BasicLayout extends Component {
     this[action](targetKey);
   }
 
+  // onPaneChange = (activeKey) => {
+  //   this.setState({ activeKey });
+  // }
+
   remove = (targetKey) => {
+    if (this.state.panes.length === 1) return;  // 只剩最后一个标签页时 不删除
     let activeKey = this.state.activeKey;
     let lastIndex;
     this.state.panes.forEach((pane, i) => {
@@ -72,6 +78,7 @@ class BasicLayout extends Component {
       }
     }
     this.setState({ panes, activeKey });
+    router.push(activeKey);
   }
 
   render() {
@@ -107,6 +114,7 @@ class BasicLayout extends Component {
           </Header>
           <Content style={{ margin: '8px 8px 0', height: '100%' }} >
             <TabPage
+              // onChange={this.onPaneChange}
               panes={this.state.panes}
               activeKey={this.state.activeKey}
               onEdit={this.onEdit}
