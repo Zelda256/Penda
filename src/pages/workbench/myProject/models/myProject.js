@@ -1,4 +1,4 @@
-import { list, read, createProcess, getRefundAmount, createRefund } from '../../../../servies/myProject';
+import { list, read, createProcess, getRefundAmount, createRefund, updateProcessStatus } from '../../../../servies/myProject';
 import { message } from 'antd';
 
 export default {
@@ -34,6 +34,7 @@ export default {
       }
     },
     *read({ payload: id }, { call, put }) {
+      console.log('???????????????id', id);
       const result = yield call(read, id);
       if (result && result.status === 1) {
         const data = result.data;
@@ -73,12 +74,26 @@ export default {
       if (result && result.status === 1) {
         console.log('createRefund');
         message.success('添加报销成功', 3);
-        // const data = result.data;
         yield put({
           type: 'read',
           payload: {
             id: payload.projectId
           }
+        });
+      }
+    },
+    *updateProcessStatus({ payload: { processId, body } }, { call, put }) {
+      console.log('updateProcessStatus Payload', processId, body);
+      const result = yield call(updateProcessStatus, processId, body);
+      if (result && result.status === 1) {
+        console.log('body.projectId', body);
+        const id = body.projectId;
+        console.log('idididididid', id);
+        message.success('修改子任务状态成功');
+        // const data = result.data;
+        yield put({
+          type: 'read',
+          payload: id
         });
       }
     }

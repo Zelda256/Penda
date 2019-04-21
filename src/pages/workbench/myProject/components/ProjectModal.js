@@ -175,8 +175,20 @@ class ProjectModal extends PureComponent {
     });
     this.handleProcessInput();
   }
-  processStatusChange = () => {
-
+  // 更新子任务状态
+  processStatusChange = (processId, value) => {
+    // console.log(id, value);
+    const { dispatch} = this.props;
+    dispatch({
+      type: 'myProjects/updateProcessStatus',
+      payload: {
+        processId,
+        body: {
+          status: value,
+          projectId: this.state.project._id,
+        }
+      }
+    });
   }
   // 修改任务名称
   handleProcessName = (e) => {
@@ -240,8 +252,8 @@ class ProjectModal extends PureComponent {
   }
   render() {
     console.log('project', this.state.project);
-    console.log('refundAmount', this.state.refundAmount);
-    console.log('this.state.handleRefundWarn', this.state.handleRefundWarn.toString());
+    // console.log('refundAmount', this.state.refundAmount);
+    // console.log('this.state.handleRefundWarn', this.state.handleRefundWarn.toString());
     const userName = JSON.parse(window.sessionStorage.getItem('user')).name;
     const userId = JSON.parse(window.sessionStorage.getItem('user'))._id;
     const { project, newProcess, refundAmount } = this.state;
@@ -360,13 +372,13 @@ class ProjectModal extends PureComponent {
                               className={styles.taskStatus}
                               value={process.status}
                               style={{ width: 60 }}
-                              onChange={this.processStatusChange}
+                              onChange={(value) => this.processStatusChange(process._id, value)}
                               dropdownMatchSelectWidth={false}
                               size="small"
                             >
-                              <Option value={1}>将进行</Option>
-                              <Option value={2}>进行中</Option>
-                              <Option value={3}>已完成</Option>
+                              <Option key={1} value={1}>将进行</Option>
+                              <Option key={2} value={2}>进行中</Option>
+                              <Option key={3} value={3}>已完成</Option>
                             </Select>
                           </div>
                           <div>

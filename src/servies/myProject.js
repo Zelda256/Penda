@@ -36,3 +36,15 @@ export function createRefund(refund) {
     body: JSON.stringify(refund)
   });
 }
+
+export function updateProcessStatus(processId, body) {
+  return request(`/api/process/status/${processId}`, {
+    method: 'PUT',
+    headers: {
+      'user-agent': 'Mozilla/4.0 MDN Example',
+      'content-type': 'application/json'
+    },
+    credentials: 'same-origin',
+    body: JSON.stringify(body)
+  });
+}
