@@ -84,6 +84,7 @@ export default class GlobalHeader extends PureComponent {
       </Menu>
     );
     const noticeData = this.getNoticeData();
+    const userAvatar = window.sessionStorage.getItem('user') ? JSON.parse(window.sessionStorage.getItem('user')).avatar : null;
 
     return (
       <div className={styles.header}>
@@ -136,7 +137,7 @@ export default class GlobalHeader extends PureComponent {
           {currentUser.name ? (
             <Dropdown overlay={menu}>
               <span className={`${styles.action} ${styles.account}`}>
-                <Avatar size="small" className={styles.avatar} src={currentUser.avatar} />
+                <Avatar size="small" className={styles.avatar} src={userAvatar ? userAvatar : currentUser.avatar} />
                 <span className={styles.name}>{currentUser.name}</span>
               </span>
             </Dropdown>

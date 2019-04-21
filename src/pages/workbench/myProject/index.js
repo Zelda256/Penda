@@ -25,6 +25,9 @@ class MyProject extends PureComponent {
   handleshowOrderChange = (value) => {
     this.setState({ orderType: value });
   }
+  createProject = () => {
+
+  }
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.projects && nextProps.projects !== prevState.projects) {
       return {
@@ -45,12 +48,15 @@ class MyProject extends PureComponent {
       default: console.log(`这个item的status出错${item}`);
       }
     });
+
+    console.log('user:::::::', JSON.parse(window.sessionStorage.getItem('user')));
+    const userIdentity = JSON.parse(window.sessionStorage.getItem('user')).identity;
     return <>
       <div className={styles.whiteBg}>
         <div className={styles.top}>
           <Row type="flex" justify="space-between" align="middle" style={{ marginTop: 8 }}>
             <Col span={6}>
-              <Button type="primary">新建项目</Button>
+              <Button type="primary" disabled={userIdentity === 2} onClick={this.createProject}>新建项目</Button>
             </Col>
 
             <Col span={6}>
@@ -76,20 +82,18 @@ class MyProject extends PureComponent {
               </Select>
             </Col>
 
-            <Col span={6}>
+            {/* <Col span={6}>
               <span>显示方式：</span>
               <Radio.Group value={showType} onChange={this.handleShowTypeChange} size="small">
                 <Radio.Button value="waterfallType">瀑布</Radio.Button>
                 <Radio.Button value="listType">列表</Radio.Button>
                 <Radio.Button value="ganttType">甘特</Radio.Button>
               </Radio.Group>
-            </Col>
+            </Col> */}
           </Row>
         </div>
         <div className={styles.main}>
           {showType === 'waterfallType' && <Waterfall processing={processing} notStarted={notStarted} finished={finished} />}
-
-
         </div>
       </div>
     </>;

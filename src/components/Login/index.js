@@ -66,6 +66,7 @@ class Login extends PureComponent {
   render() {
     // console.log(this.state.loginRes);
     if (this.props.loginRes && this.props.loginRes.name) {
+      window.sessionStorage['user'] = JSON.stringify(this.props.loginRes);
       return <Redirect to="/workbench/myProject" />;
     }
     return <div className={styles.bg}>

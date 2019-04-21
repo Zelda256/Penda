@@ -1,5 +1,5 @@
 import request from './utils/request';
-import { func } from 'prop-types';
+// import { func } from 'prop-types';
 
 export function list(query) {
   return request(`/api/projects?search=${query}`);
@@ -18,5 +18,21 @@ export function createProcess(projectId, process) {
     },
     credentials: 'same-origin',
     body: JSON.stringify(process)
+  });
+}
+
+export function getRefundAmount(projectId) {
+  return request(`/api/refundAmount/${projectId}`);
+}
+
+export function createRefund(refund) {
+  return request('/api/refunds/', {
+    method: 'POST',
+    headers: {
+      'user-agent': 'Mozilla/4.0 MDN Example',
+      'content-type': 'application/json'
+    },
+    credentials: 'same-origin',
+    body: JSON.stringify(refund)
   });
 }

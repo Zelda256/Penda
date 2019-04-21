@@ -1,14 +1,16 @@
 
 
+
 .modalLeft {
   display: inline-block;
   font-size: 14px;
-  width: 760px;
+  width: 600px;
   border-right: 1px dashed #bbb;
   h2 {
     width: 640px;
     text-overflow: ellipsis;
   }
+
   label {
     display: inline-block;
   }
@@ -19,39 +21,7 @@
       display: inline-block;
     }
   }
-  .modalLeftTask {
-    margin: 16px 25px 16px 0px;;
-    margin-right: 25px;
-    .task {
-      margin-top: 8px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      .taskStatusMask {
-        position: relative;
-        left: 16px;
-        z-index: 0;
-      }
-      .taskStatus {
-        background: #888;
-        opacity:1;
-        position: relative;
-        left: -32px;
-        opacity: 0;
-      }
-    }
-    .addTask {
-      font-size: 16px;
-      padding: 6px 8px;
-      cursor: pointer;
-      .btnGroup {
-        display: flex;
-        justify-content: flex-end;
-        .btn {
-          margin: 6px 0px 6px 8px;
-        }
-      }
-    }
-  }
+
   .leftLabel {
     width: 160px;
     font-size: 16px;
@@ -74,7 +44,7 @@
   .remark {
     cursor: pointer;
     border-radius: 4px;
-    width: 560px;
+    width: 400px;
     height: 32px;
     padding: 6px 8px;
     &:hover {
@@ -111,11 +81,10 @@
       border-radius: 8px;
     }
   }
-
 }
 
 .modalRight {
-  width: 380px;
+  width: 400px;
   height: 100%;
   float: right;
   .modalRightTop {
@@ -127,11 +96,44 @@
     margin-top: 16px;
     height: 360px;
     font-size: 16px;
-    .process {
-      .time {
-        position: relative;
-        right: 0;
+    .taskWrap {
+      margin: 8px 0px 8px 0px;
+      // margin-right: 25px;
+      .taskList {
+        // margin-top: 8px;
+        // border: 1px solid #ccc;
+        // border-radius: 6px;
+        height: 340px;
+        overflow: auto;
+        .taskStatusMask {
+          position: relative;
+          left: 0px;
+          z-index: 0;
+        }
+        .taskStatus {
+          background: #888;
+          opacity:1;
+          position: relative;
+          left: -48px;
+          opacity: 0;
+        }
+      }
+      .addTask {
+        font-size: 16px;
+        position: absolute;
+        right: 32px;
+        // margin-left: 16px;
+        // padding: 6px 8px;
+        cursor: pointer;
+        .btnGroup {
+          display: flex;
+          justify-content: flex-end;
+          .btn {
+            margin: 6px 0px 6px 8px;
+          }
+        }
       }
     }
   }
+
 }
