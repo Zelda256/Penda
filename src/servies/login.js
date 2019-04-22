@@ -14,3 +14,8 @@ export function login({ username, password }) {
     })
   });
 }
+
+export function logout() {
+  console.log('????? logout api');
+  return request('/api/logout');
+}

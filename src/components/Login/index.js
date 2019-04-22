@@ -29,8 +29,8 @@ class Login extends PureComponent {
       eyeY: y
     });
   }
+  // 普通登录
   onLogin = () => {
-    // router.push('/workbench/myProject');
     const { username, password } = this.state;
     if (!username || !password) return;
     const { dispatch } = this.props;
@@ -42,6 +42,7 @@ class Login extends PureComponent {
       }
     });
   }
+  // 访客登录
   onCustomLogin = () => {
     const { dispatch } = this.props;
     dispatch({
@@ -66,6 +67,7 @@ class Login extends PureComponent {
   render() {
     // console.log(this.state.loginRes);
     if (this.props.loginRes && this.props.loginRes.name) {
+      console.log('跳转！ /workbench/myProject');
       window.sessionStorage['user'] = JSON.stringify(this.props.loginRes);
       return <Redirect to="/workbench/myProject" />;
     }

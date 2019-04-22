@@ -25,7 +25,6 @@ class BasicLayout extends Component {
         { title: '我的项目', key: '/workbench/myProject' },
       ],
       activeKey: '/workbench/myProject',
-      // user: {}
     };
   }
   handleMenuCollapse = () => {
@@ -34,13 +33,24 @@ class BasicLayout extends Component {
     });
   }
 
-  loginUser = (user) => {
-    this.setState({
-      name: user.name,
-      avatar: user.avatar,
-      userId: user._id,
-      notifyCount: 0
-    });
+  // 个人中心 设置 退出登录
+  onMenuClick = ({ key }) => {
+    // console.log('????????????????41234234134');
+    // console.log(key);
+    const { dispatch } = this.props;
+    if (key === 'logout') {
+      key = null;
+      console.log('点击 logout!');
+      dispatch({
+        type: 'login/logout',
+        payload: null
+      });
+      // console.log('dispatch 一次!');
+      // key = null;
+      // router.push('/');
+      // this.props.location.pathname = '/login';
+      // message.info('您已退出登录');
+    }
   }
 
   // 添加标签，如果该标签页已打开，则只激活该标签页
@@ -56,10 +66,7 @@ class BasicLayout extends Component {
     this[action](targetKey);
   }
 
-  // onPaneChange = (activeKey) => {
-  //   this.setState({ activeKey });
-  // }
-
+  // 删除标签页
   remove = (targetKey) => {
     if (this.state.panes.length === 1) return;  // 只剩最后一个标签页时 不删除
     let activeKey = this.state.activeKey;
@@ -109,6 +116,7 @@ class BasicLayout extends Component {
                 userId: this.props.loginRes ? this.props.loginRes._id : '0001',
                 notifyCount: 0,
               }}
+              onMenuClick={this.onMenuClick}
               onCollapse={this.handleMenuCollapse}
             />
           </Header>

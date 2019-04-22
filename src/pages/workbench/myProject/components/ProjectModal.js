@@ -498,7 +498,7 @@ class ProjectModal extends PureComponent {
                 <Select style={{ width: 280 }} onChange={this.handleRefundProcess}>
                   {project.process.map(process => {
                     if (process.member.find(member => member._id === userId)) {
-                      return <Option key={process._id} value={process._id}>{process.name}</Option>;
+                      return <Option key={process._id}>{process.name}</Option>;
                     }
                   })}
                 </Select>
