@@ -2,6 +2,8 @@
 
 **毕设**
 
+React + Umi + Dva + Antd
+
 #### 运行
 ```
 yarn install
