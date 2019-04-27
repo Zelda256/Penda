@@ -49,7 +49,7 @@ class BasicLayout extends Component {
       // key = null;
       // router.push('/');
       // this.props.location.pathname = '/login';
-      // message.info('您已退出登录');
+      // message.success('您已退出登录');
     }
   }
 

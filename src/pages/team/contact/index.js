@@ -1,55 +1,24 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Button, Input, Divider, Row, Col, Table, Popconfirm, Form, } from 'antd';
+import { Button, Input, Row, Col, Table, Popconfirm, Form, Modal, Icon, message, Typography  } from 'antd';
 import styles from './index.less';
 
 const Search = Input.Search;
-// const Panel = Collapse.Panel;
+const { Text } = Typography;
 const FormItem = Form.Item;
 const EditableContext = React.createContext();
 
-class EditableCell extends React.Component {
-  getInput = () => {
-    return <Input />;
-  };
-
-  render() {
-    const { editing, dataIndex, title, record, index, ...restProps } = this.props;
-    return (
-      <EditableContext.Consumer>
-        {(form) => {
-          const { getFieldDecorator } = form;
-          return (
-            <td {...restProps}>
-              {editing ? (
-                <FormItem style={{ margin: 0 }}>
-                  {getFieldDecorator(dataIndex, {
-                    rules: [{
-                      required: true,
-                      message: `Please Input ${title}!`,
-                    }],
-                    initialValue: record[dataIndex],
-                  })(this.getInput())}
-                </FormItem>
-              ) : restProps.children}
-            </td>
-          );
-        }}
-      </EditableContext.Consumer>
-    );
-  }
-}
-
 @Form.create()
 @connect(({ contact }) => ({
-  contact: contact.contact,
+  contacts: contact.contacts,
 }))
 class Contact extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      contact: [],
+      contacts: {},
       editingKey: '',
+      addContactModal: false
     };
   }
 
@@ -57,62 +26,88 @@ class Contact extends PureComponent {
 
   }
 
-  isEditing = record => record._id === this.state.editingKey;
-
-  save() {
-
+  deleteUser(userId) {
+    const curUserId = JSON.parse(window.sessionStorage.getItem('user'))._id;
+    if (userId === curUserId) {
+      message.error('不能删除自己');
+      return;
+    }
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'contact/removeUserInContact',
+      payload: {
+        contactId: this.state.contacts._id,
+        userId,
+      }
+    });
   }
 
-  cancel() {
-    this.setState({ editingKey: '' });
+  handleAddContactModal = () => {
+    this.setState({
+      addContactModal: !this.state.addContactModal
+    });
   }
 
-  edit(key) {
-    this.setState({ editingKey: key });
-  }
-
-  delete() {
-
+  addUserToContact = () => {
+    const { getFieldValue, setFieldsValue } = this.props.form;
+    const { dispatch } = this.props;
+    const userId = getFieldValue('userId');
+    dispatch({
+      type: 'contact/addUserToConact',
+      payload: {
+        contactId: this.state.contacts._id,
+        userId,
+      }
+    });
+    setFieldsValue({ 'userId': null });
+    this.handleAddContactModal();
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.contact && nextProps.contact !== prevState.contact) {
+    if (nextProps.contacts && nextProps.contacts !== prevState.contacts) {
       return {
-        contact: nextProps.contact
+        contacts: nextProps.contacts
       };
     }
     return null;
   }
   render() {
-    console.log(this.state.contact);
-    const { contact } = this.state;
+    const { getFieldDecorator } = this.props.form;
+    const { contacts } = this.state;
+    const { contact } = contacts;
     const columns = [
+      {
+        title: 'ID',
+        dataIndex: '_id',
+        align: 'center',
+        width: '18%',
+        editable: true,
+      },
       {
         title: '姓名',
         dataIndex: 'name',
         align: 'center',
-        width: '15%',
+        width: '10%',
         editable: true,
       },
       {
         title: '邮箱',
         dataIndex: 'email',
         align: 'center',
-        width: '20%',
+        width: '18%',
         editable: true,
       },
       {
         title: '号码',
         dataIndex: 'phone',
         align: 'center',
-        width: '20%',
+        width: '12%',
         editable: true,
       },
       {
         title: '部门',
         dataIndex: 'department',
         align: 'center',
-        width: '10%',
         editable: true,
         render: (text, record) => record.department ? record.department : '/',
       },
@@ -120,105 +115,85 @@ class Contact extends PureComponent {
         title: '岗位',
         dataIndex: 'job',
         align: 'center',
-        width: '15%',
         editable: true,
         render: (text, record) => record.job ? record.job : '/',
       },
       {
         title: '操作',
         align: 'center',
+        width: '12%',
         render: (text, record) => {
-          const { editingKey } = this.state;
-          const editable = this.isEditing(record);
-          // console.log(editable);
           return (
             <div>
-              {editable ? (
-                <span>
-                  <EditableContext.Consumer>
-                    {form => (
-                      <a
-                        href="javascript:;"
-                        onClick={() => this.save(form, record._id)}
-                      >
-                        保存
-                      </a>
-                    )}
-                  </EditableContext.Consumer>
-                  <Divider type="vertical" />
-                  <Popconfirm
-                    title="确认取消?"
-                    onConfirm={() => this.cancel(record._id)}
-                  >
-                    <a>取消</a>
-                  </Popconfirm>
-                </span>
-              ) : (
-                <span>
-                  <a disabled={editingKey !== ''} onClick={() => this.edit(record._id)}>编辑</a>
-                  <Divider type="vertical" />
-                  <Popconfirm
-                    title="确认删除?"
-                    onConfirm={() => this.delete(record._id)}
-                  >
-                    <a disabled={editingKey !== ''}>删除</a>
-                  </Popconfirm>
-                </span>
-              )}
+              <Popconfirm
+                title="确认删除?"
+                okText="确认"
+                cancelText="取消"
+                onConfirm={() => this.deleteUser(record._id)}
+              >
+                <Text style={{color: '#40A9FF', cursor: 'pointer'}}>删除</Text>
+              </Popconfirm>
             </div>
           );
         }
       }
     ];
-    const components = {
-      body: {
-        cell: EditableCell
-      }
-    };
-    const columnsCell = columns.map(col => {
-      if (!col.editable) return col;
-      return {
-        ...col,
-        onCell: record => ({
-          record,
-          dataIndex: col.dataIndex,
-          title: col.title,
-          editing: this.isEditing(record),
-        })
-      };
-    });
 
     return (
-      <div className={styles.whiteBg}>
-        <div className={styles.top}>
-          <Row type="flex" justify="space-between" align="middle" style={{ marginTop: 8 }}>
-            <Col span={4}>
-              <Button type="primary">新建联系人</Button>
-            </Col>
-            <Col span={20}>
-              <Search
-                placeholder="联系人姓名"
-                onSearch={this.handleSearchContact}
-                size="small"
-                style={{ width: 240 }}
-              />
-            </Col>
-          </Row>
+      <>
+        <div className={styles.whiteBg}>
+          <div className={styles.top}>
+            <Row type="flex" justify="space-between" align="middle" style={{ marginTop: 8 }}>
+              <Col span={4}>
+                <Button type="primary" onClick={this.handleAddContactModal}>新建联系人</Button>
+              </Col>
+              <Col span={20}>
+                <Search
+                  placeholder="联系人姓名"
+                  onSearch={this.handleSearchContact}
+                  size="small"
+                  style={{ width: 240 }}
+                />
+              </Col>
+            </Row>
+          </div>
+          <EditableContext.Provider value={this.props.form}>
+            <Table
+              bordered
+              dataSource={contact}
+              rowKey={record => record._id}
+              columns={columns}
+              rowClassName="editableRow"
+              pagination={{
+                onChange: this.cancel,
+              }}
+            />
+          </EditableContext.Provider>
         </div>
-        <EditableContext.Provider value={this.props.form}>
-          <Table
-            components={components}
-            bordered
-            dataSource={contact}
-            rowKey="_id"
-            columns={columnsCell}
-            rowClassName="editableRow"
-            pagination={{
-              onChange: this.cancel,
-            }}
-          />
-        </EditableContext.Provider>
-      </div>
+        <Modal
+          title="添加联系人"
+          visible={this.state.addContactModal}
+          okText="添加"
+          cancelText="取消"
+          onOk={this.addUserToContact}
+          onCancel={this.handleAddContactModal}
+        >
+          <Form>
+            <FormItem
+              label="用户 id"
+              labelCol={{ span: 4 }}
+              wrapperCol={{ span: 16 }}
+              key='userId'
+            >
+              {getFieldDecorator('userId', {
+                rules: [{ required: true, message: '请输入用户 ID' }],
+              })(
+                <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }}  />} />
+              )}
+            </FormItem>
+          </Form>
+        </Modal>
+      </>
     );
   }
 }
