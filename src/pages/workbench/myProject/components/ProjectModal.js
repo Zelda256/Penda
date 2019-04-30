@@ -31,7 +31,8 @@ class ProjectModal extends PureComponent {
       maxRefund: false,  // 剩余报销额度
       refundType: null,  // 报销类型
       refundProcess: null,  // 需报销的过程
-      refundValue: 0,  // 报销金额
+      refundValue: null,  // 报销金额
+      refundDate: null,
       handleRefundWarn: false,
       newProcess: {
         name: '',
@@ -78,8 +79,15 @@ class ProjectModal extends PureComponent {
         projectId: this.state.project._id,
         processId: this.state.refundProcess,
         type: this.state.refundType,
-        value: this.state.refundValue
+        value: this.state.refundValue,
+        date: this.state.refundDate
       }
+    });
+    this.setState({
+      refundType: null,  // 报销类型
+      refundProcess: null,  // 需报销的过程
+      refundValue: null,  // 报销金额
+      refundDate: null,
     });
     this.handleRefundModal();
   }
@@ -145,6 +153,13 @@ class ProjectModal extends PureComponent {
       });
     }
   }
+  // 输入报销日期
+  handleRufundDate = (value, dateString) => {
+    console.log(dateString);
+    this.setState({
+      refundDate: dateString,
+    });
+  }
 
   handleProcessInput = () => {
     this.setState({
@@ -178,7 +193,7 @@ class ProjectModal extends PureComponent {
   // 更新子任务状态
   processStatusChange = (processId, value) => {
     // console.log(id, value);
-    const { dispatch} = this.props;
+    const { dispatch } = this.props;
     dispatch({
       type: 'myProjects/updateProcessStatus',
       payload: {
@@ -498,7 +513,7 @@ class ProjectModal extends PureComponent {
                 <Select style={{ width: 280 }} onChange={this.handleRefundProcess}>
                   {project.process.map(process => {
                     if (process.member.find(member => member._id === userId)) {
-                      return <Option key={process._id}>{process.name}</Option>;
+                      return <Option key={process._id} value={process._id}>{process.name}</Option>;
                     }
                   })}
                 </Select>
@@ -531,6 +546,28 @@ class ProjectModal extends PureComponent {
                       this.state.handleRefundWarn ? <Icon type="close-circle" style={{ fontSize: 18, color: '#CC3333', marginLeft: 8 }} /> :
                         <Icon type="check-circle" style={{ fontSize: 18, color: '#99CC66', marginLeft: 8 }} />}
                 </span>
+              )}
+            </Item>
+            <Item label="日期" labelCol={{ span: 4 }} wrapperCol={{ span: 16 }}>
+              {getFieldDecorator('refundDate', {
+                rules: [{ required: true, message: '请输入日期' }]
+              })(
+                <DatePicker
+                  onChange={this.handleRufundDate}
+                  locale={locale}  // 中文
+                  format="YYYY-MM-DD"
+                  disabledDate={current => {  // 禁止选择除项目进行期间以外的日期
+                    return current < moment(project.startDate).endOf('day') ||
+                      current > moment().endOf('day');
+                  }}
+                  dateRender={(current) => {
+                    return (
+                      <div className="ant-calendar-date">
+                        {current.date()}
+                      </div>
+                    );
+                  }}
+                />
               )}
             </Item>
 

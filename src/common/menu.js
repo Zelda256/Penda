@@ -43,7 +43,7 @@ const menuData = [
     children: [
       {
         name: '报销记录',
-        path: 'reimburse',
+        path: 'refunds',
       },
     ],
   },

@@ -76,9 +76,7 @@ export default {
         message.success('添加报销成功', 3);
         yield put({
           type: 'read',
-          payload: {
-            id: payload.projectId
-          }
+          payload: payload.projectId
         });
       }
     },
