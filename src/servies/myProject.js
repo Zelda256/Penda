@@ -5,6 +5,10 @@ export function list(query) {
   return request(`/api/projects?search=${query}`);
 }
 
+export function listName() {
+  return request('/api/projects/name');
+}
+
 export function read(id) {
   return request(`/api/projects/${id}`);
 }

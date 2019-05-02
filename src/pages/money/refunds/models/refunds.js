@@ -1,18 +1,24 @@
 import { list } from '../../../../servies/refunds';
+import { listName } from '../../../../servies/myProject';
 
 export default {
   namespace: 'refunds',
   state: {
     refund: [],
+    projects: []
   },
   reducers: {
     listRefunds(state, { payload: { data: refund } }) {
       console.log(refund);
       return { ...state, refund };
     },
+    listProjectName(state, { payload: { data: projects } }) {
+      return { ...state, projects };
+    }
   },
   effects: {
     *list({ payload: query }, { call, put }) {
+      // console.log('????????', query);
       const result = yield call(list, query);
       if (result && result.status === 1) {
         const data = result.data;
@@ -24,12 +30,25 @@ export default {
         });
       }
     },
+    *listProjects({ payload }, { call, put }) {
+      const result = yield call(listName);
+      if (result && result.status === 1) {
+        const data = result.data;
+        yield put({
+          type: 'listProjectName',
+          payload: {
+            data
+          }
+        });
+      }
+    }
   },
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname }) => {
         if (pathname === '/money/refunds') {
           dispatch({ type: 'list' });
+          dispatch({ type: 'listProjects' });
         }
       });
     }

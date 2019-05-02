@@ -524,12 +524,12 @@ class ProjectModal extends PureComponent {
                 rules: [{ required: true, message: '请选择报销类型' }]
               })(
                 <Select style={{ width: 280 }} onChange={this.handleRufundType}>
-                  <Option key={1} value={1}>差旅费（限额:{refundAmount.maxTravel}、剩余:{refundAmount.leftTravel}）</Option>
-                  <Option key={2} value={2}>材料费（限额:{refundAmount.maxStuff}、剩余:{refundAmount.leftStuff}）</Option>
-                  <Option key={3} value={3}>文献出版费（限额:{refundAmount.maxPublish}、剩余:{refundAmount.leftPublish}）</Option>
-                  <Option key={4} value={4}>劳务费（限额:{refundAmount.maxLabor}、剩余:{refundAmount.leftLabor}）</Option>
-                  <Option key={5} value={5}>专家咨询费（限额:{refundAmount.maxConsult}、剩余:{refundAmount.leftConsult}）</Option>
-                  <Option key={6} value={6}>设备费（限额:{refundAmount.maxDevice}、剩余:{refundAmount.leftDevice}）</Option>
+                  <Option value={1}>差旅费（限额:{refundAmount.maxTravel}、剩余:{refundAmount.leftTravel}）</Option>
+                  <Option value={2}>材料费（限额:{refundAmount.maxStuff}、剩余:{refundAmount.leftStuff}）</Option>
+                  <Option value={3}>文献出版费（限额:{refundAmount.maxPublish}、剩余:{refundAmount.leftPublish}）</Option>
+                  <Option value={4}>劳务费（限额:{refundAmount.maxLabor}、剩余:{refundAmount.leftLabor}）</Option>
+                  <Option value={5}>专家咨询费（限额:{refundAmount.maxConsult}、剩余:{refundAmount.leftConsult}）</Option>
+                  <Option value={6}>设备费（限额:{refundAmount.maxDevice}、剩余:{refundAmount.leftDevice}）</Option>
                 </Select>
               )}
             </Item>

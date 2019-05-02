@@ -45,6 +45,10 @@ const menuData = [
         name: '报销记录',
         path: 'refunds',
       },
+      {
+        name: '各人汇总',
+        path: 'summary',
+      },
     ],
   },
 ];
