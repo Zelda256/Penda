@@ -42,11 +42,11 @@ const menuData = [
     path: 'money',
     children: [
       {
-        name: '报销记录',
+        name: '支出记录',
         path: 'refunds',
       },
       {
-        name: '各人汇总',
+        name: '报销汇总',
         path: 'summary',
       },
     ],

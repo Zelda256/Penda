@@ -52,7 +52,6 @@ class Refunds extends PureComponent {
     this.setState({
       projectSearch: value,
     });
-
   }
   handleTypeSearch = (value) => {
     // console.log('handleTypeSearch', value);
@@ -123,11 +122,8 @@ class Refunds extends PureComponent {
       <div className={styles.whiteBg}>
         <div className={styles.top}>
           <Row type="flex" justify="space-between" align="middle" style={{ marginTop: 8 }}>
-            <Col span={2}>
+            <Col span={3}>
               <Button type="primary">导出Excel</Button>
-            </Col>
-            <Col span={2}>
-              <Button>生成决算表</Button>
             </Col>
             <Divider type="vertical" />
             <Col span={6}>
@@ -179,9 +175,6 @@ class Refunds extends PureComponent {
             size="middle"
             bordered
             title={() => {
-              // let tableTitle = null;
-              // tableTitle = projectSearch ? projects.find(pro => pro._id === projectSearch).name: '所有项目';
-              // console.log(tableTitle);
               return <span>
                 <Text strong>{projectSearch ? projects.find(pro => pro._id === projectSearch).name: '所有项目'}</Text>
                 <span> ，共 <Text type="warning" strong>{refund.length}</Text> 条 </span>

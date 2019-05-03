@@ -9,7 +9,6 @@ export default {
   },
   reducers: {
     listRefunds(state, { payload: { data: refund } }) {
-      console.log(refund);
       return { ...state, refund };
     },
     listProjectName(state, { payload: { data: projects } }) {
@@ -18,10 +17,10 @@ export default {
   },
   effects: {
     *list({ payload: query }, { call, put }) {
-      // console.log('????????', query);
       const result = yield call(list, query);
       if (result && result.status === 1) {
         const data = result.data;
+        // console.log('list data???', data);
         yield put({
           type: 'listRefunds',
           payload: {
@@ -34,6 +33,7 @@ export default {
       const result = yield call(listName);
       if (result && result.status === 1) {
         const data = result.data;
+        // console.log('listProjects data???', data);
         yield put({
           type: 'listProjectName',
           payload: {
