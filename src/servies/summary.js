@@ -10,3 +10,7 @@ export function list(query) {
 
   return request(url);
 }
+
+export function readAccounts(projectId) {
+  return request(`/api/refunds/account/${projectId}`);
+}

@@ -5,7 +5,8 @@ export default {
   namespace: 'refunds',
   state: {
     refund: [],
-    projects: []
+    projects: [],
+
   },
   reducers: {
     listRefunds(state, { payload: { data: refund } }) {

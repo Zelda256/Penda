@@ -170,15 +170,16 @@ class Refunds extends PureComponent {
         </div>
         <div className={styles.mainTable}>
           <Table
+            rowKey={record => record._id}
             columns={columns}
             dataSource={refund}
             size="middle"
             bordered
             title={() => {
               return <span>
-                <Text strong>{projectSearch ? projects.find(pro => pro._id === projectSearch).name: '所有项目'}</Text>
+                <Text strong>{projectSearch ? projects.find(pro => pro._id === projectSearch).name : '所有项目'}</Text>
                 <span> ，共 <Text type="warning" strong>{refund.length}</Text> 条 </span>
-                <Text strong>{typeSearch ? refundType[typeSearch]: '所有'}</Text>
+                <Text strong>{typeSearch ? refundType[typeSearch] : '所有'}</Text>
                 <span> 报销类型的记录</span>
               </span>;
             }}

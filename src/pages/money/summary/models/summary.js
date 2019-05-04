@@ -1,19 +1,23 @@
-import { list } from '../../../../servies/summary';
+import { list, readAccounts } from '../../../../servies/summary';
 import { listName } from '../../../../servies/myProject';
 
 export default {
   namespace: 'summarys',
   state: {
     summary: [],
-    projects: []
+    projects: [],
+    accounts: [],
   },
   reducers: {
-    listSummary(state, { payload: { data: summary } }) {
+    updateSummary(state, { payload: { data: summary } }) {
       // console.log(summary);
       return { ...state, summary };
     },
-    listProjectName(state, { payload: { data: projects } }) {
+    updateProjectName(state, { payload: { data: projects } }) {
       return { ...state, projects };
+    },
+    updateAccounts(state, { payload: { data: accounts } }) {
+      return { ...state, accounts };
     }
   },
   effects: {
@@ -22,7 +26,7 @@ export default {
       if (result && result.status === 1) {
         const data = result.data;
         yield put({
-          type: 'listSummary',
+          type: 'updateSummary',
           payload: {
             data
           }
@@ -34,7 +38,21 @@ export default {
       if (result && result.status === 1) {
         const data = result.data;
         yield put({
-          type: 'listProjectName',
+          type: 'updateProjectName',
+          payload: {
+            data
+          }
+        });
+      }
+    },
+    *listAccounts({ payload: projectId }, { call, put }) {
+      // console.log('call??????????');
+      const result = yield call(readAccounts, projectId);
+      if (result && result.status === 1) {
+        const data = result.data;
+        // console.log('listAccounts data???', data);
+        yield put({
+          type: 'updateAccounts',
           payload: {
             data
           }
