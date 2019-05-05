@@ -1,4 +1,4 @@
-import { list, readAccounts } from '../../../../servies/summary';
+import { list, readAccounts, } from '../../../../servies/summary';
 import { listName } from '../../../../servies/myProject';
 
 export default {
@@ -58,7 +58,7 @@ export default {
           }
         });
       }
-    }
+    },
   },
   subscriptions: {
     setup({ dispatch, history }) {

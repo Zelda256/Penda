@@ -68,6 +68,7 @@ class Summary extends PureComponent {
       projectSearch: null,
     });
   }
+
   genExtra = (projectId) => {
     const { dispatch } = this.props;
     const { summary } = this.state;
@@ -99,6 +100,8 @@ class Summary extends PureComponent {
         size="small"
         onClick={(event) => {
           event.stopPropagation();
+
+          window.open('/api/refunds/summary/download/' + projectId);
         }}
       >
         <Icon type="cloud-download" />
@@ -116,6 +119,7 @@ class Summary extends PureComponent {
     // console.log('projects', projects);
     // const refundType = ['/', '差旅费', '材料费', '文献出版费', '劳务费', '专家咨询费', '设备费'];
     console.log('summary', summary);
+    // console.log('accounts', accounts);
     const columns = [{
       title: '姓名',
       dataIndex: 'user.name',
@@ -182,7 +186,7 @@ class Summary extends PureComponent {
     const modalColumns = [
       {
         title: '序号',
-        // dataIndex: 'index',
+        key: '00',
         align: 'center',
         render: (text, record, index) => <span>{index + 1}</span>
       }, {
@@ -199,9 +203,10 @@ class Summary extends PureComponent {
         align: 'center',
       }, {
         title: '支出情况',
+        key: '0',
         children: [{
           title: '差旅费',
-          // dataIndex: 'index',
+          key: '1',
           align: 'center',
           render: (text, record) => {
             let account = record.account.find(item => item.type === 1);
@@ -213,7 +218,7 @@ class Summary extends PureComponent {
           }
         }, {
           title: '材料费',
-          // dataIndex: 'index',
+          key: '2',
           align: 'center',
           render: (text, record) => {
             let account = record.account.find(item => item.type === 2);
@@ -225,7 +230,7 @@ class Summary extends PureComponent {
           }
         }, {
           title: '文献出版费',
-          // dataIndex: 'index',
+          key: '3',
           align: 'center',
           render: (text, record) => {
             let account = record.account.find(item => item.type === 3);
@@ -237,10 +242,11 @@ class Summary extends PureComponent {
           }
         }, {
           title: '劳务费',
-          // dataIndex: 'index',
+          key: '4',
           align: 'center',
           render: (text, record) => {
             let account = record.account.find(item => item.type === 4);
+            // console.log(account);
             if (account) {
               return <span>{account.value}</span>;
             } else {
@@ -249,7 +255,7 @@ class Summary extends PureComponent {
           }
         }, {
           title: '专家咨询费',
-          // dataIndex: 'index',
+          key: '5',
           align: 'center',
           render: (text, record) => {
             let account = record.account.find(item => item.type === 5);
@@ -261,7 +267,7 @@ class Summary extends PureComponent {
           }
         }, {
           title: '设备费',
-          // dataIndex: 'index',
+          key: '6',
           align: 'center',
           render: (text, record) => {
             let account = record.account.find(item => item.type === 6);
@@ -372,7 +378,7 @@ class Summary extends PureComponent {
           width="1080px"
         >
           <Table
-            rowKey={record => record._id}
+            // rowKey={row => row.name}
             columns={modalColumns}
             dataSource={accounts}
             bordered
