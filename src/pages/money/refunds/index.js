@@ -78,6 +78,7 @@ class Refunds extends PureComponent {
 
   render() {
     const { refund, projects, projectSearch, typeSearch } = this.state;
+    console.log(refund);
     const refundType = ['/', '差旅费', '材料费', '文献出版费', '劳务费', '专家咨询费', '设备费'];
     const columns = [
       {

@@ -36,11 +36,11 @@ class ProjectModal extends PureComponent {
       handleRefundWarn: false,
       newProcess: {
         name: '',
-        selectedKeys: [],
+        member: [],
         targetKeys: [],
         startDate: null,
         deadLine: null,
-        cost: 0,
+        budge: 0,
       }
     };
   }
@@ -155,7 +155,7 @@ class ProjectModal extends PureComponent {
   }
   // 输入报销日期
   handleRufundDate = (value, dateString) => {
-    console.log(dateString);
+    // console.log(dateString);
     this.setState({
       refundDate: dateString,
     });
@@ -169,7 +169,7 @@ class ProjectModal extends PureComponent {
   // 添加任务/过程
   addProcess = () => {
     const { newProcess, project } = this.state;
-    const { name, cost, targetKeys, startDate, deadLine } = newProcess;
+    const { name, budge, member, startDate, deadLine } = newProcess;
 
     const currentDate = moment();
     const checkStatus = currentDate < moment(startDate) ? 1 : currentDate > moment(deadLine) ? 3 : 2;
@@ -180,8 +180,8 @@ class ProjectModal extends PureComponent {
         projectId: project._id,
         process: {
           name,
-          cost,
-          member: targetKeys,
+          budge,
+          member,
           startDate,
           deadLine,
           status: checkStatus
@@ -215,10 +215,10 @@ class ProjectModal extends PureComponent {
     });
   }
   // 修改任务预算
-  handleProcessCost = (value) => {
+  handleProcessBudge = (value) => {
     const newProcessCopy = _.cloneDeep(this.state.newProcess);  // 深拷贝
-    const cost = value;
-    newProcessCopy.cost = cost;
+    const budge = value;
+    newProcessCopy.budge = budge;
     this.setState({
       newProcess: newProcessCopy
     });
@@ -235,23 +235,22 @@ class ProjectModal extends PureComponent {
     });
   }
   // 修改任务执行者
-  processMemberSelect = (sourceSelectedKeys, targetSelectedKeys) => {
+  processMemberSelect = (value) => {
     const newProcessCopy = _.cloneDeep(this.state.newProcess);  // 深拷贝
-    const selectedKeys = [...sourceSelectedKeys, ...targetSelectedKeys];
-    newProcessCopy.selectedKeys = selectedKeys;
+    newProcessCopy.member = value;
     this.setState({
       newProcess: newProcessCopy
     });
   }
-  // 修改任务执行者
-  handleprocessMember = (nextTargetKeys) => {
-    const newProcessCopy = _.cloneDeep(this.state.newProcess);  // 深拷贝
-    const targetKeys = nextTargetKeys;
-    newProcessCopy.targetKeys = targetKeys;
-    this.setState({
-      newProcess: newProcessCopy
-    });
-  }
+  // // 修改任务执行者
+  // handleprocessMember = (nextTargetKeys) => {
+  //   const newProcessCopy = _.cloneDeep(this.state.newProcess);  // 深拷贝
+  //   const targetKeys = nextTargetKeys;
+  //   newProcessCopy.targetKeys = targetKeys;
+  //   this.setState({
+  //     newProcess: newProcessCopy
+  //   });
+  // }
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.project && nextProps.project !== prevState.project) {
       return {
@@ -266,7 +265,7 @@ class ProjectModal extends PureComponent {
     return null;
   }
   render() {
-    console.log('project', this.state.project);
+    // console.log('project', this.state.project);
     // console.log('refundAmount', this.state.refundAmount);
     // console.log('this.state.handleRefundWarn', this.state.handleRefundWarn.toString());
     const userName = JSON.parse(window.sessionStorage.getItem('user')).name;
@@ -342,7 +341,7 @@ class ProjectModal extends PureComponent {
                     <Divider type="vertical" />
                     <a style={{ color: 'rgba(0, 0, 0, 0.65)' }}><Icon type="eye" /> 结束提醒</a>
                     <Divider type="vertical" />
-                    <a>添加提醒</a>
+                    {/* {project.status !== 3 ? <a>添加提醒</a> : null} */}
                   </div>
                 </div>
               </div>
@@ -365,9 +364,9 @@ class ProjectModal extends PureComponent {
                 </div>
                 <div className={styles.taskWrap}>
                   <Icon type="solution" /><span>  子任务</span>
-                  <span className={styles.addTask} onClick={this.handleProcessInput}>
+                  {project.status !== 3 ? <span className={styles.addTask} onClick={this.handleProcessInput}>
                     <Icon type="plus-circle" theme="twoTone" /> 添加子任务
-                  </span>
+                  </span> : null}
                   <div className={styles.taskList}>
                     <Collapse
                       bordered={false}
@@ -447,11 +446,11 @@ class ProjectModal extends PureComponent {
             )}
           </Item>
           <Item label="执行预算" labelCol={{ span: 4 }} wrapperCol={{ span: 16 }}>
-            {getFieldDecorator('processCost', {
-              rules: [{ message: '请输入任务的执行预算' }]
+            {getFieldDecorator('processBudge', {
+              // rules: [{ message: '请输入任务的执行预算' }]
             })(
               <InputNumber
-                onChange={this.handleProcessCost}
+                onChange={this.handleProcessBudge}
                 size="small"
               />
             )}
@@ -473,23 +472,17 @@ class ProjectModal extends PureComponent {
               />
             )}
           </Item>
-          <Item label="执行者">
+          <Item label="执行者" labelCol={{ span: 4 }} wrapperCol={{ span: 16 }}>
             {getFieldDecorator('processMember', {
               rules: [{ required: true, message: '请选择执行者' }]
             })(
-              !project ? <Spin /> : <div>
-                <Transfer
-                  rowKey={record => record._id}
-                  dataSource={project.team.member}
-                  locale={{ itemUnit: '项', itemsUnit: '项', notFoundContent: '列表为空' }}
-                  titles={['项目执行团队', '该任务执行者']}
-                  targetKeys={newProcess.targetKeys}
-                  selectedKeys={newProcess.selectedKeys}
-                  render={item => item.name}
-                  onChange={this.handleprocessMember}
-                  onSelectChange={this.processMemberSelect}
-                />
-              </div>
+              <Select
+                mode="multiple"
+                onChange={this.processMemberSelect}
+                size="small"
+              >
+                {project ? project.team.member.map(member => <Option key={member._id} value={member._id}>{member.name}</Option>) : null}
+              </Select>
             )}
           </Item>
         </Form>

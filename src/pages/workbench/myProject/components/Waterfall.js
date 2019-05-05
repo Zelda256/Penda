@@ -27,8 +27,12 @@ class Waterfall extends PureComponent {
     });
   }
   hideProjectDetail = () => {
+    const { dispatch } = this.props;
     this.setState({
       showProjectModal: false,
+    });
+    dispatch({
+      type: 'myProjects/list',
     });
   }
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -57,7 +61,7 @@ class Waterfall extends PureComponent {
                 hoverable
                 type="inner"
                 size="small"
-                className={item.priority === 1 ? styles.projectItem_red : styles.projectItem_yellow}
+                className={item.priority === 1 ? styles.projectItem_green : item.priority === 3 ?  styles.projectItem_red : styles.projectItem_yellow}
                 onClick={() => this.showProjectDetail(item._id)}
               >
                 <div className={styles.projectItem}>

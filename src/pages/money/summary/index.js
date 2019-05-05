@@ -118,8 +118,8 @@ class Summary extends PureComponent {
     const { summary, projects, accounts, projectLeader, projectBudget, projectName } = this.state;
     // console.log('projects', projects);
     // const refundType = ['/', '差旅费', '材料费', '文献出版费', '劳务费', '专家咨询费', '设备费'];
-    console.log('summary', summary);
-    // console.log('accounts', accounts);
+    // console.log('summary', summary);
+    console.log('accounts', accounts);
     const columns = [{
       title: '姓名',
       dataIndex: 'user.name',
@@ -209,6 +209,7 @@ class Summary extends PureComponent {
           key: '1',
           align: 'center',
           render: (text, record) => {
+            if (!record.account) return null;
             let account = record.account.find(item => item.type === 1);
             if (account) {
               return <span>{account.value}</span>;
@@ -221,6 +222,7 @@ class Summary extends PureComponent {
           key: '2',
           align: 'center',
           render: (text, record) => {
+            if (!record.account) return null;
             let account = record.account.find(item => item.type === 2);
             if (account) {
               return <span>{account.value}</span>;
@@ -233,6 +235,7 @@ class Summary extends PureComponent {
           key: '3',
           align: 'center',
           render: (text, record) => {
+            if (!record.account) return null;
             let account = record.account.find(item => item.type === 3);
             if (account) {
               return <span>{account.value}</span>;
@@ -245,6 +248,7 @@ class Summary extends PureComponent {
           key: '4',
           align: 'center',
           render: (text, record) => {
+            if (!record.account) return null;
             let account = record.account.find(item => item.type === 4);
             // console.log(account);
             if (account) {
@@ -255,9 +259,10 @@ class Summary extends PureComponent {
           }
         }, {
           title: '专家咨询费',
-          key: '5',
+          key: '9999',
           align: 'center',
           render: (text, record) => {
+            if (!record.account) return null;
             let account = record.account.find(item => item.type === 5);
             if (account) {
               return <span>{account.value}</span>;
@@ -270,6 +275,7 @@ class Summary extends PureComponent {
           key: '6',
           align: 'center',
           render: (text, record) => {
+            if (!record.account) return null;
             let account = record.account.find(item => item.type === 6);
             if (account) {
               return <span>{account.value}</span>;
@@ -319,7 +325,7 @@ class Summary extends PureComponent {
             {!summary || !summary.length ? <Empty /> :
               <Collapse
                 bordered={false}
-                defaultActiveKey={summary.map(item => { return item.project._id; })}
+                defaultActiveKey={summary.length ? summary[0].project._id : null}
               >
                 {summary.map((item) => {
                   return (
@@ -354,9 +360,9 @@ class Summary extends PureComponent {
                             1. 差旅费：{traval} 元；
                           2. 材料费：{stuff} 元；
                           3. 文献出版费：{publish} 元；
-                          4. 劳务费：{labor}元；
-                          5. 专家咨询费：{consult}元；
-                          6. 设备费：{device}元；
+                          4. 劳务费：{labor} 元；
+                          5. 专家咨询费：{consult} 元；
+                          6. 设备费：{device} 元；
                           </Text>;
                         }}
                       />
@@ -378,7 +384,7 @@ class Summary extends PureComponent {
           width="1080px"
         >
           <Table
-            // rowKey={row => row.name}
+            rowKey={row => row.name}
             columns={modalColumns}
             dataSource={accounts}
             bordered
