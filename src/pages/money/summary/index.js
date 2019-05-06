@@ -28,6 +28,7 @@ class Summary extends PureComponent {
       projectLeader: null,
       projectBudget: null,
       projectName: null,
+      projectId: null,
     };
   }
 
@@ -90,6 +91,7 @@ class Summary extends PureComponent {
               projectLeader: project.creator.name,
               projectBudget: project.budget,
               projectName: project.name,
+              projectId: project._id
             });
           }
         }}
@@ -100,7 +102,6 @@ class Summary extends PureComponent {
         size="small"
         onClick={(event) => {
           event.stopPropagation();
-
           window.open('/api/refunds/summary/download/' + projectId);
         }}
       >
@@ -113,6 +114,10 @@ class Summary extends PureComponent {
     this.setState({
       showAccountTbl: !this.state.showAccountTbl
     });
+  }
+  downloadAccount = ()=> {
+    const {projectId} = this.state;
+    window.open('/api/refunds/account/download/' + projectId);
   }
   render() {
     const { summary, projects, accounts, projectLeader, projectBudget, projectName } = this.state;
@@ -377,10 +382,11 @@ class Summary extends PureComponent {
           title="决算表"
           visible={this.state.showAccountTbl}
           centered={true}
-          // onOk={this.handleAccountTbl}
+          onOk={this.downloadAccount}
           onCancel={this.handleAccountTbl}
-          // okText="确认"
-          footer={false}
+          okText="下载"
+          cancelText="取消"
+          // footer={false}
           width="1080px"
         >
           <Table

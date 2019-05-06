@@ -75,6 +75,18 @@ class Refunds extends PureComponent {
       typeSearch: null,
     });
   }
+  downloadRefund = () => {
+    const { projectSearch, typeSearch } = this.state;
+    let url = '/api/refunds/download?';
+    if (projectSearch) {
+      url += `projectId=${projectSearch}&`;
+    }
+    if (typeSearch) {
+      url += `type=${typeSearch}`;
+    }
+    // return request(url);
+    window.open(url);
+  }
 
   render() {
     const { refund, projects, projectSearch, typeSearch } = this.state;
@@ -124,7 +136,7 @@ class Refunds extends PureComponent {
         <div className={styles.top}>
           <Row type="flex" justify="space-between" align="middle" style={{ marginTop: 8 }}>
             <Col span={3}>
-              <Button type="primary">导出Excel</Button>
+              <Button type="primary" onClick={this.downloadRefund}>导出Excel</Button>
             </Col>
             <Divider type="vertical" />
             <Col span={6}>
