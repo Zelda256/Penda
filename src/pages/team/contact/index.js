@@ -145,7 +145,7 @@ class Contact extends PureComponent {
           <div className={styles.top}>
             <Row type="flex" justify="space-between" align="middle" style={{ marginTop: 8 }}>
               <Col span={4}>
-                <Button type="primary" onClick={this.handleAddContactModal}>新建联系人</Button>
+                <Button type="primary" onClick={this.handleAddContactModal}>添加联系人</Button>
               </Col>
               <Col span={20}>
                 <Search

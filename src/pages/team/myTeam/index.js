@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Card, Row, Col, Input, Button, Avatar, Tooltip, List } from 'antd';
+import { Card, Row, Col, Input, Button, Avatar, Tooltip, Icon, Typography,Statistic  } from 'antd';
 import styles from './index.less';
 
 
 const Search = Input.Search;
+const { Text } = Typography;
 
 @connect(({ myTeam }) => ({
   teams: myTeam.teams,
@@ -53,15 +54,45 @@ class MyTeam extends PureComponent {
           {teams.map(team => {
             return (
               <Card
+                hoverable={true}
                 key={team._id}
                 title={team.name}
                 size="small"
                 style={{ width: 240, margin: '6px 8px', borderRadius: 8, cursor: 'pointer', }}
+                extra={<Icon type="edit" theme="twoTone" twoToneColor="#eb2f96"/>}
               >
-                <Tooltip placement="bottom" title='添加成员'>
-                  <Avatar style={{ color: '#fff', backgroundColor: '#fa541c' }}>＋</Avatar>
-                </Tooltip>
-                {team.member.map(member => <Tooltip placement="bottom" title={member.name} key={member._id}><Avatar src={member.avatar} /></Tooltip>)}
+                <p>
+                  <Text strong>成员：</Text>
+                  {team.member.map(member => <Tooltip placement="bottom" title={member.name} key={member._id}>
+                    <Avatar src={member.avatar} />
+                    <span> </span>
+                  </Tooltip>)}
+                </p>
+                {/* <p>
+                  <Text strong>近期项目：</Text>
+                </p> */}
+                <p>
+                  <Row gutter={16}>
+                    <Col span={12}>
+                      <Statistic
+                        title="已完成项目"
+                        value={team.proj.reduce((sum, proj) => {
+                          if (proj.status === 3) return sum + 1;
+                        }, 0)}
+                        suffix={'/ ' + team.proj.length}
+                      />
+                    </Col>
+                    <Col span={12}>
+                      <Statistic
+                        title="进行中项目"
+                        value={team.proj.reduce((sum, proj) => {
+                          if (proj.status === 2) return sum + 1;
+                        }, 0)}
+                        suffix={'/ ' + team.proj.length}
+                      />
+                    </Col>
+                  </Row>
+                </p>
               </Card>);
           })}
         </div>

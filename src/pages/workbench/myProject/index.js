@@ -112,7 +112,7 @@ class MyProject extends PureComponent {
       });
     } else if (orderType === 'expireTime') {  // 截止日期
       projects.sort((a, b) => {
-        return moment(b.deadLine) - moment(a.deadLine);
+        return moment(a.deadLine) - moment(b.deadLine);
       });
     } else if (orderType === 'createTime') { // 开始日期
       projects.sort((a, b) => {
